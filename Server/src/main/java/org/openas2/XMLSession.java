@@ -184,17 +184,11 @@ public class XMLSession extends BaseSession {
 		NamedNodeMap namedNodeMap = node.getAttributes();
 		try {
 			String name = namedNodeMap.getNamedItem(DBFactory.CONFIG_NAMED_NODE_NAME).getNodeValue();
-			String url = namedNodeMap.getNamedItem(DBFactory.CONFIG_NAMED_NODE_URL).getNodeValue();
-			String user = namedNodeMap.getNamedItem(DBFactory.CONFIG_NAMED_NODE_USER).getNodeValue();
-			String password = namedNodeMap.getNamedItem(DBFactory.CONFIG_NAMED_NODE_PASSWORD).getNodeValue();
-			DBFactory bFactory = new DBFactory(url, user, password);
+			DBFactory bFactory = new DBFactory(namedNodeMap);
 			DBFactory.DBFactoryList.put(name, bFactory);
-		} catch (DOMException e) {
-			throw new OpenAS2Exception("Attributes '" + DBFactory.CONFIG_NAMED_NODE_NAME + "', '" + DBFactory.CONFIG_NAMED_NODE_URL + "', '"
-					+ DBFactory.CONFIG_NAMED_NODE_USER + "' and '" + DBFactory.CONFIG_NAMED_NODE_PASSWORD + "' are mandatory for " + EL_DATABASECONFIG + "!");
-		} catch (NullPointerException e) {
-			throw new OpenAS2Exception("Attributes '" + DBFactory.CONFIG_NAMED_NODE_NAME + "', '" + DBFactory.CONFIG_NAMED_NODE_URL + "', '"
-					+ DBFactory.CONFIG_NAMED_NODE_USER + "' and '" + DBFactory.CONFIG_NAMED_NODE_PASSWORD + "' are mandatory for " + EL_DATABASECONFIG + "!");
+			bFactory.start();
+		} catch (Exception e) {
+			throw new OpenAS2Exception(e);
 		}
 	}
 

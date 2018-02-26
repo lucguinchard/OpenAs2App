@@ -11,7 +11,18 @@
 	<!--partnerships classname="org.openas2.partner.XMLPartnershipFactory"
 	filename="%home%/partnerships.xml"/-->
 
-	<dbconfig name="as2_dbA" url="jdbc:mysql://127.0.0.1/openas2?characterEncoding=UTF-8" user="openas2" password="2oM2905Z#8"/>
+	<dbconfig name="as2_dbA" 
+				db_user="openas2"
+				db_pwd="2oM2905Z#8"
+				db_name="openas2"
+				db_table="as2_message_A"
+				jdbc_driver="com.mysql.jdbc.Driver"
+				jdbc_connect_string="jdbc:mysql://127.0.0.1/openas2"
+				sql_escape_character="'"
+				tcp_server_start="false"
+				tcp_server_port="3306"
+				use_embedded_db="false"
+	/>
 	<!--dbconfig name="as2_bd1" url="jdbc:h2:tcp://localhost:9092/openas2" user="sa" password="OpenAS2"/-->
 	<partnerships classname="org.openas2.partner.DBPartnershipFactory" dbconfig="as2_dbA"/>
 
@@ -90,16 +101,8 @@
 				mimetype="application/EDI-X12"/>
 
 		<module classname="org.openas2.processor.msgtracking.DbTrackingModule"
-				db_user="openas2"
-				db_pwd="2oM2905Z#8"
-				db_name="openas2"
+				dbconfig="as2_dbA"
 				db_table="as2_message_A"
-				jdbc_driver="com.mysql.jdbc.Driver"
-				jdbc_connect_string="jdbc:mysql://127.0.0.1/openas2"
-				sql_escape_character="'"
-				tcp_server_start="false"
-				tcp_server_port="3306"
-				use_embedded_db="false"
 		/> 
 
 		<module classname="org.openas2.processor.storage.MDNFileModule"

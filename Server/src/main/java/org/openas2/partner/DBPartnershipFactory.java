@@ -77,23 +77,6 @@ public class DBPartnershipFactory extends BasePartnershipFactory
 
 	public FileMonitor getFileMonitor() throws InvalidParameterException {
 		boolean createMonitor = ((fileMonitor == null) && (getParameter(PARAM_INTERVAL, false) != null));
-//
-//        if (!createMonitor && (fileMonitor != null)) {
-//            String filename = fileMonitor.getFilename();
-//            createMonitor = ((filename != null) && !filename.equals(getFilename()));
-//        }
-//
-//        if (createMonitor) {
-//            if (fileMonitor != null) {
-//                fileMonitor.stop();
-//            }
-//
-//            int interval = getParameterInt(PARAM_INTERVAL, true);
-//            File file = new File(getFilename());
-//            fileMonitor = new FileMonitor(file, interval);
-//            //fileMonitor.addListener(this);
-//        }
-
 		return fileMonitor;
 	}
 
@@ -242,7 +225,7 @@ public class DBPartnershipFactory extends BasePartnershipFactory
 		List newPartnerships = new ArrayList();
 
 		DBFactory dBFactory = DBFactory.getDBFactory(getParameter(XMLSession.EL_DATABASECONFIG, null));
-
+		dBFactory.start();
 		Connection connexion = null;
 		try {
 			connexion = dBFactory.getConnection();
